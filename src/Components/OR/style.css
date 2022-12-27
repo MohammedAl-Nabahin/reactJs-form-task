@@ -1,0 +1,27 @@
+.or{
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #BABABA;
+margin-top: -12px;
+}
+
+.or::before{
+    content: "";
+    border: 1px solid #F5F5F5;
+    background-color: #F5F5F5;
+    width: 11rem;
+}
+
+
+.or::after{
+    content: "";
+    border: 1px solid #F5F5F5;
+    background-color: #F5F5F5;
+    width: 11rem;
+}

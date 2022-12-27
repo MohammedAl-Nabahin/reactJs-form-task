@@ -1,0 +1,113 @@
+.rigisterForm{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.formTitle{
+    max-width: 100%;
+}
+
+#hTitle{
+    font-size: 26px;
+}
+
+#pTitle{
+    margin-top: 9px;
+    font-size: 16px;
+    color: #8692A6;
+    width: 370px;
+    height: 56px;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(93, 92, 92, 0.08);
+    margin-bottom: -0.5px;
+}
+
+.email-sec{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.password1-sec{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.password2-sec{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-sec{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* margin-left: -20px; */
+}
+
+#checked{
+cursor: pointer;
+width:15px;
+height:15px;
+}
+
+.rigisterBtn{
+background: #1565D8;
+border-radius: 6px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+display: flex;
+align-items: center;
+text-align: center;
+border: 0;
+color: #FFFFFF;
+padding: 18px 117px;
+cursor: pointer;
+}
+
+
+.logInBtn{
+    position: relative;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    padding: 20px 62px;
+    display: flex;
+    gap: 97px;
+    width: 35%;
+    cursor: pointer;
+}
+
+.logInBtn button{
+    background-color: transparent;
+    border-radius: 6px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 0;
+    color: black;
+    cursor: pointer;
+}
+
+#LogIngIcon{
+    position: absolute;
+    left: 0;
+    margin: 0 30px;
+    
+}
+
+.error{
+    color:red;
+}

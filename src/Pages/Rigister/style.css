@@ -1,0 +1,143 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter&display=swap);
+
+
+.rigister{
+    display: flex; 
+    flex-direction:row;
+    height: 725px; 
+    font-family: Inter;  
+    width: 100%;
+}
+
+.side{
+    padding-left:  80px;
+    display: flex;
+    /* padding: auto auto; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    height:100%;
+    background: 
+    linear-gradient(
+        hsl(215, 82%, 46%,0.9), 
+        hsl(215, 82%, 46%,0.9) 
+      ),
+    url(../../images/hiddenLogo.png);
+    background-repeat: no-repeat;
+    background-size: 572px 754px;
+    position: relative;
+}
+
+
+.logo{
+    display: flex;
+    position: absolute;
+    left: 80px;
+    top: 2rem;
+    gap: 0px;
+}
+
+#logoImg{
+    width: 90%;
+    height:5rem;
+}
+
+.dots{
+    margin-top: -60px;
+    padding-bottom: 80px;
+    margin-right: 190px;
+}
+
+.gamers{
+font-family: 'Raanana';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 16px;
+color: #FFFFFF;
+}
+
+
+.coma{
+font-family: 'Gayathri';
+font-style: normal;
+font-weight: 700;
+font-size: 70px;
+margin-bottom: -55px;
+padding: 0;
+color: #00DAF7;
+}
+
+
+.textClass{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: flex-start;
+    text-align: left;
+    align-content: flex-start;
+}
+
+
+.quote{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 0.7rem;
+    width: 85%;
+    text-align: left;
+    margin-top: -100px
+}
+
+
+#corner{
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    right: 16.5rem;
+    bottom:0rem;
+    margin-top: -50rem;
+}
+
+#p1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 38px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+
+#p2{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size:15px;
+    line-height: 38px;
+    color: #FFFFFF;
+}
+
+.rightSide{
+    width:95vh;
+
+}
+
+
+.BackSec{
+    margin: 15px;
+    margin-top: 20px;
+    margin-left: -150px;
+    color: #8692A6;
+   
+}
+
+#back{
+    margin-top: -5px;
+    margin: 5px;
+ font-size: 25px;
+  cursor: pointer;
+}

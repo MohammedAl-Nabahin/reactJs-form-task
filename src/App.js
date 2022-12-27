@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import Rigister from '../src/Pages/Rigister';
+import LogIn from '../src/Pages/LogIn';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  state = {
+    showComponent1: true
+  };
+
+  goToLogIn= () =>{
+      this.setState({showComponent1:false});
+  }
+
+  goToRigister=()=>{
+    this.setState({showComponent1:true});
+  }
+
+
+  render() {
+    return (
+        this.state.showComponent1 ? <Rigister switch={this.goToLogIn} /> : <LogIn goToRigister={this.goToRigister}/>
+    )
+  }
 }
-
-export default App;
