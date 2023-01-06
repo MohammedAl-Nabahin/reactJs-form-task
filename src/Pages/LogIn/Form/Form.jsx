@@ -14,6 +14,8 @@ import tIcon from '../../../images/tIcon.png';
 import inIcon from '../../../images/inIcon.png';
 import gitIcon from '../../../images/gitIcon.png';
 import * as Yup from 'yup';
+// import { Link } from "react-router-dom";
+
 
 export default class Form extends Component {
 
@@ -121,14 +123,17 @@ export default class Form extends Component {
             </div>
             <div className="error">{(this.state.passwordError)}</div>
 
-
+            <Link to={"/Home"}>
      <Button btn="logBtn" btntype="submit" title="LogIn"
                disabled={this.state.disabled}  handle={this.props.goto}
               onClick={this.props.goToHome}  /> 
+              </Link>
+
+              <Link to={"/Rigister"}>
            <span className="link">
            Don’t have an account?<button id="rigBtn" onClick={this.props.goToRigister} >Register</button>
             </span> 
-
+            </Link>
          
          
       </form>

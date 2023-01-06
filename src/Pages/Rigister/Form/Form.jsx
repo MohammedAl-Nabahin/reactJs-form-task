@@ -10,7 +10,7 @@ import Icon from "../../../Components/Icon/Icon";
 import gIcon from '../../../images/gIcon.png';
 // import { boolean, object, ref, string } from 'yup';
 import * as Yup from 'yup';
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useNavigate  } from 'react-router-dom';
 
 
@@ -182,15 +182,17 @@ export default class Form extends Component {
            
             <div className="error">{(this.state.checkError)}</div>
 
-           
+            <Link to={"/Home"}>
                <Button btn="rigisterBtn" btntype="submit" title="Register Account"
                 />
-            
+            </Link>
 
             <OR/>
             <div className="logInBtn">
                 <Icon iconSrc={gIcon} alt="google" id="LogIngIcon"/>
+                <Link to={"/"}>
             <Button btn="logBtn2" btntype="button" title="login" onClick={this.props.switch}/>
+            </Link>
             </div>
             
       </form>

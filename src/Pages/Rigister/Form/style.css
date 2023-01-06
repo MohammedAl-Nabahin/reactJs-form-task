@@ -111,3 +111,20 @@ cursor: pointer;
 .error{
     color:red;
 }
+
+#email{
+    margin-left: -20rem;
+}
+
+#password{
+    margin-left: -20rem;
+}
+
+#repassword{
+    margin-left: -20rem;
+}
+
+#hTitle{
+    margin-left: -20rem;
+
+}

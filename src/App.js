@@ -7,29 +7,17 @@ import Home from '../src/Pages/Home'
 import React, { Component } from 'react'
 
 export default class App extends Component {
-  state = {
-    showComponent1: true,
- 
-  };
-
-  goToLogIn= () =>{
-      this.setState({showComponent1:true});
-  }
-
-  goToRigister=()=>{
-    this.setState({showComponent1:false});
-  }
-
-  goToHome=()=>{
-    this.setState({showComponent1:true});
-  }
-
-
 
 
   render() {
     return (
-        this.state.showComponent1 ?   <Home/> : <LogIn goToRigister={this.goToRigister} goToHome={this.goToHome}/> 
+        <div className="App">
+        <Routes>
+          <Route path="/" element={<LogIn/>} />
+          <Route path="/Home" element={<Home/>} />
+          <Route path="/Rigister" element={<Rigister/>} />
+        </Routes>
+      </div>
         )
   }
 }

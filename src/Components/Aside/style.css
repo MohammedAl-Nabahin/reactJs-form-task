@@ -4,7 +4,7 @@
     gap: 150px;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0px;
     margin-left: 10px;
     width: 10%;
     background-color: transparent;
@@ -23,6 +23,7 @@
     width: 9px;
    
 }
+
 
 .mode{
     display: flex;
@@ -51,4 +52,9 @@
 #playIconID{
     width: 44%;
     cursor: pointer;
+    margin-left: -5.5rem;
+}
+
+#heartIconID ,#settingsIconID{
+     margin-left: -5.5rem;
 }
