@@ -24,7 +24,7 @@ export default class index extends Component {
                 </div>
             </Side>
         <div className='rightSide'>
-            <Form goToRigister={this.props.goToRigister}/>
+            <Form goToRigister={this.props.goToRigister} gotoHome={this.props.gotoHome}/>
         </div>
 
         </div>

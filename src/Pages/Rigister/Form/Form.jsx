@@ -8,6 +8,12 @@ import Button from "../../../Components/Button/button";
 import OR from "../../../Components/OR/Or";
 import Icon from "../../../Components/Icon/Icon";
 import gIcon from '../../../images/gIcon.png';
+// import { boolean, object, ref, string } from 'yup';
+import * as Yup from 'yup';
+// import { Link } from "react-router-dom";
+// import { useNavigate  } from 'react-router-dom';
+
+
 
 export default class Form extends Component {
 
@@ -17,7 +23,12 @@ export default class Form extends Component {
         repassword:"",
         checked:false,
         disabled:false,
-        errors:""   
+        errors:[],
+        emailError:"",
+        passwordError:"",  
+        repasswordError:"",
+        checkError:"",
+        goTo:""
     }
 
     state = {
@@ -25,28 +36,72 @@ export default class Form extends Component {
         password:"",
         repassword:"",
         checked:false,    
-        disabled:false,
-        errors:""    
+        errors:[],
+        emailError:"",
+        passwordError:"",  
+        repasswordError:"",
+        checkError:"",
+        matchErr:"",
+        goTo:""
     }
 
+
+    
+    Schema = Yup.object().shape({
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+      password: Yup.string()
+        .min(8, 'Password must be at least 8 characters long')
+        .required('Password is required'),
+      repassword: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+        .required('Repeat password is required'),
+        checked : Yup.boolean().oneOf([true],"You need to agree on terms and condetions").required()
+      }
+    );
    
 
     handleSubmit = (e)=> {
-        if(this.validatePassword === true){
+      
         e.preventDefault();
-        this.setState((prevState) => ({
-             email: prevState.email ,
-            password : prevState.password ,
-            repassword : prevState.repassword,
-             checked: prevState.checked
-         , ...this.defaults }))
-        }else{
-            this.setState({disabled: true });
-        }
 
-        
-    }
+        this.Schema.validate({
+            email: this.state.email , 
+            password: this.state.password,
+            repassword: this.state.repassword,
+            checked: this.state.checked, 
+        } , {abortEarly:false})
+        .then(() =>{
+            this.setState((prevState) => ({
+              
+              email: prevState.email ,
+             password : prevState.password ,
+             repassword : prevState.repassword,
+              checked: prevState.checked
+          , ...this.defaults }))
+          
+        }).catch((e)=>{
+          this.setState({errors:e});
+          this.setState({emailError:e.errors[0]});
+          this.setState({passwordError:e.errors[3]});
+          this.setState({repasswordError:e.errors[1]});
+          this.setState({checkError:e.errors[4]});
 
+          if(this.state.repassword  !== this.state.passwordError ){
+            this.setState({matchError: "Passwords Dont Match "});
+          }
+
+          if(this.state.passwordError < 8 && this.state.passwordError >1){
+              this.setState({passwordError:e.errors[2]});
+          }
+
+          if(this.state.errors === null){
+            this.setState({goTo:"/LogIn"})
+          }
+        }); 
+
+    };
 
 
     
@@ -89,7 +144,9 @@ export default class Form extends Component {
                 value={this.state.email}
                 // error=""
                 />
+                 <div className="error">{(this.state.emailError)}</div>
             </div>
+           
 
             <div className="password1-sec">
                 <Label for="password" labelTitle="Create password*"/>
@@ -99,6 +156,7 @@ export default class Form extends Component {
                 handle={this.handleChangeInput}
                 value={this.state.password}
                 />
+                    <div className="error">{(this.state.passwordError)}</div>
             </div>
 
             <div className="password2-sec">
@@ -109,23 +167,23 @@ export default class Form extends Component {
                 handle={this.handleChangeInput}
                 value={this.state.repassword}
                 onBlur={this.handleBlur}
-                // error="The Password Dont Match"
                 />
-                <div className="error">{this.state.errors}</div>
+                  <div className="error">{(this.state.repasswordError)}</div>
             </div>
-
+          
             <div className="checkbox-sec">
                 <Input type="checkbox"  id="checked" name="check"
                 handle={this.handleChangeInput}
                 checked={this.state.checked}
-                // error=""
                 />
                 <Label for="checked" labelTitle="I agree to terms & conditions"/>
             </div>
 
            
+            <div className="error">{(this.state.checkError)}</div>
+
+           
                <Button btn="rigisterBtn" btntype="submit" title="Register Account"
-               disabled={this.state.disabled} 
                 />
             
 
@@ -134,6 +192,7 @@ export default class Form extends Component {
                 <Icon iconSrc={gIcon} alt="google" id="LogIngIcon"/>
             <Button btn="logBtn2" btntype="button" title="login" onClick={this.props.switch}/>
             </div>
+            
       </form>
     )
   }

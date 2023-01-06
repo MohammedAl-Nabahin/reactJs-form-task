@@ -1,4 +1,6 @@
 import "./style.css";
+import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import React, { Component } from 'react'
 import Title from "../../../Components/Title";
@@ -11,30 +13,70 @@ import gIcon from '../../../images/gIcon.png';
 import tIcon from '../../../images/tIcon.png';
 import inIcon from '../../../images/inIcon.png';
 import gitIcon from '../../../images/gitIcon.png';
+import * as Yup from 'yup';
 
 export default class Form extends Component {
 
     defaults = {
         email:"",
         password:"",
-        errors:""   
+        errors:[],
+        emailError:"",
+        passwordError:""
     }
 
     state = {
         email:"",
         password:"",
-        errors:""    
+        errors:[],
+        emailError:"",
+        passwordError:""
     }
 
    
+ 
+    Schema = Yup.object().shape({
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+      password: Yup.string()
+        .min(8, 'Password must be at least 8 characters long')
+        .required('Password is required'),
+      }
+    );
+   
 
     handleSubmit = (e)=> {
-             e.preventDefault();
-        this.setState((prevState) => ({
-             email: prevState.email ,
-            password : prevState.password
-         , ...this.defaults }))
-    }
+      
+        e.preventDefault();
+
+        this.Schema.validate({
+            email: this.state.email , 
+            password: this.state.password,
+        } , {abortEarly:false})
+        .then(() =>{
+            this.setState((prevState) => ({
+              
+              email: prevState.email ,
+             password : prevState.password 
+          , ...this.defaults }))
+          
+        }).catch((e)=>{
+          this.setState({errors:e});
+          this.setState({emailError:e.errors[0]});
+          this.setState({passwordError:e.errors[2]});
+
+          if(this.state.passwordError < 8 && this.state.passwordError >1){
+              this.setState({passwordError:e.errors[2]});
+          }
+
+          if(this.state.errors === null){
+            this.setState({goTo:"/LogIn"})
+          }
+        }); 
+        this.props.history.push('/');
+    };
+
 
     handleChangeInput = (e) => {
         const { value, id } = e.target;
@@ -65,6 +107,7 @@ export default class Form extends Component {
                 value={this.state.email}
                 // error=""
                 />
+            <div className="error">{(this.state.emailError)}</div>
             </div>
 
             <div className="log-password1-sec">
@@ -74,13 +117,14 @@ export default class Form extends Component {
                 id="password"
                 handle={this.handleChangeInput}
                 value={this.state.password}
-                // error="The Password Dont Match"
                 />
             </div>
+            <div className="error">{(this.state.passwordError)}</div>
 
-      <Button btn="logBtn" btntype="submit" title="LogIn"
+
+     <Button btn="logBtn" btntype="submit" title="LogIn"
                disabled={this.state.disabled}  handle={this.props.goto}
-                />
+              onClick={this.props.goToHome}  /> 
            <span className="link">
            Don’t have an account?<button id="rigBtn" onClick={this.props.goToRigister} >Register</button>
             </span> 
@@ -91,3 +135,5 @@ export default class Form extends Component {
     )
   }
 }
+
+

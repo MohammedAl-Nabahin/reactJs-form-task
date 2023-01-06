@@ -1,0 +1,14 @@
+.home2{
+    display: grid;
+    grid-template-columns:  90px 89.33rem;
+    overflow:hidden;
+}
+
+
+.main{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 50px;
+}
