@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    justify-content: flex-end;
+    padding: 50px;
+    margin-bottom: -50px;
+}
+
+.profileInfo{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 42px;
+    text-align: right;
+    color: #000000;
+    width: 450px;
+}
+
+#pictext{
+    margin-right: 20px;
+}

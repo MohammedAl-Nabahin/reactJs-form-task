@@ -14,7 +14,7 @@ export default class input extends Component {
             checked={this.props.checked}
             onBlur={this.props.onBlur}
             onClick={this.props.onClick}
-            required
+            
             // {...<div className="warning">{this.props.error}</div>}
         />
         <span >{this.props.error}</span>

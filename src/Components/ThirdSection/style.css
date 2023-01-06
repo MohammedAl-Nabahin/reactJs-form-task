@@ -1,0 +1,118 @@
+.thirdSection{
+    display: flex;
+    flex-direction: row;
+}
+
+.lastP{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: -35px;
+}
+
+.recentP{
+    width: 100%;
+    height: 350px;
+    margin: auto auto;
+}
+
+.recent{
+    width: 80%;
+    height: 100%;
+    background-image: url("../../images/assassin.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 45px;
+    box-shadow: 0px -6px 251px -59px rgba(0,0,0,1) inset;
+    margin: auto;
+    z-index: -5;
+}
+
+#recentTitle{
+margin-left: 100px;
+}
+
+.topContent{
+    display: flex;
+    flex-direction: row row-reverse;
+    justify-content: flex-end;
+    position: absolute;
+    right: 5px;
+    margin-left: 20px;
+}
+
+.top h5{
+ font-family: 'Gilroy';
+font-style: normal;
+font-weight: 800;
+font-size: 25px;
+line-height: 31px;
+text-align: right;
+text-transform: uppercase;
+color: #FFFFFF;
+  
+}
+
+.top {
+   display: flex;
+   flex-direction: column;
+}
+
+.bot{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+   flex-direction: column;
+   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+   opacity: 0.7;
+   backdrop-filter: blur(5px);  
+   border-radius: 0px 0px 45px 45px;
+   width: 100%;
+}
+
+.bot h5{
+    font-family: 'Gilroy';
+font-style: normal;
+font-weight: 800;
+font-size: 25px;
+line-height: 31px;
+text-transform: uppercase;
+color: #FFFFFF;
+}
+
+.recent span{
+    font-family: 'Gilroy';
+font-style: normal;
+font-weight: 800;
+font-size: 19px;
+line-height:15px;
+text-transform: uppercase;
+color: #FFFFFF;
+margin-top: -20px;
+margin-bottom: 40px;
+margin-left: 20px;
+}
+
+.friends{
+    margin: auto auto;
+}
+
+.imgs{
+    position: relative;
+}
+
+#cup{
+  z-index: 1;
+}
+
+#green{
+    position: absolute;
+    z-index: -2;
+    top: -460px;
+    left: -450px;
+    right: 0;
+    width: 55rem;
+}
