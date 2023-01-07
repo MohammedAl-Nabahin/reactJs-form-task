@@ -16,7 +16,7 @@ export default class index extends Component {
     return (
       <div className='thirdSection'>
         <div className='lastP'>
-            <GameTitle gameTitle="last played"/>
+            <GameTitle gameTitle="last played" id="lastPtitle"/>
             <LastPlayed 
                 src={lastImg1} 
                 imgId="lastimg1"

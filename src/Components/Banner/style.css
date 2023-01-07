@@ -69,8 +69,12 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-
 }
+
+#newGames{
+    margin-left: -75rem;
+}
+
 
 .bannerText{
     position: absolute;

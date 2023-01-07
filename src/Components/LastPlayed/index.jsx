@@ -10,6 +10,7 @@ export default class index extends Component {
                 src={this.props.src}
                 alt="img"
                 id={this.props.imgId}
+                className="lastImgs"
             />
         </div>
         <div className='lastText'>

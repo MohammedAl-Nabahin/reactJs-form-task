@@ -110,6 +110,7 @@ cursor: pointer;
 
 .error{
     color:red;
+    margin-left: -20rem;
 }
 
 #email{

@@ -1,7 +1,5 @@
 import "./style.css";
-import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
 import React, { Component } from 'react'
 import Title from "../../../Components/Title";
 import Label from "../../../Components/Label/label";
@@ -14,7 +12,6 @@ import tIcon from '../../../images/tIcon.png';
 import inIcon from '../../../images/inIcon.png';
 import gitIcon from '../../../images/gitIcon.png';
 import * as Yup from 'yup';
-// import { Link } from "react-router-dom";
 
 
 export default class Form extends Component {
@@ -24,7 +21,9 @@ export default class Form extends Component {
         password:"",
         errors:[],
         emailError:"",
-        passwordError:""
+        passwordError:"",
+        submitted:"",
+        goToRigister:""
     }
 
     state = {
@@ -32,7 +31,9 @@ export default class Form extends Component {
         password:"",
         errors:[],
         emailError:"",
-        passwordError:""
+        passwordError:"",
+        submitted:"",
+        goToRigister:""
     }
 
    
@@ -62,6 +63,7 @@ export default class Form extends Component {
               email: prevState.email ,
              password : prevState.password 
           , ...this.defaults }))
+          window.location.href ="http://localhost:3000/Home";
           
         }).catch((e)=>{
           this.setState({errors:e});
@@ -76,7 +78,9 @@ export default class Form extends Component {
             this.setState({goTo:"/LogIn"})
           }
         }); 
-        this.props.history.push('/');
+        this.setState({
+          submitted:"/Home"
+        });
     };
 
 
@@ -123,12 +127,10 @@ export default class Form extends Component {
             </div>
             <div className="error">{(this.state.passwordError)}</div>
 
-            <Link to={"/Home"}>
      <Button btn="logBtn" btntype="submit" title="LogIn"
                disabled={this.state.disabled}  handle={this.props.goto}
-              onClick={this.props.goToHome}  /> 
-              </Link>
-
+              onClick={this.props.goToHome} id="logBtn"  /> 
+            
               <Link to={"/Rigister"}>
            <span className="link">
            Don’t have an account?<button id="rigBtn" onClick={this.props.goToRigister} >Register</button>

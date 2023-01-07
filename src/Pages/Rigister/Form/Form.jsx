@@ -12,6 +12,7 @@ import gIcon from '../../../images/gIcon.png';
 import * as Yup from 'yup';
 import { Link } from "react-router-dom";
 // import { useNavigate  } from 'react-router-dom';
+// import Home from '../../Home/index';
 
 
 
@@ -64,6 +65,7 @@ export default class Form extends Component {
 
     handleSubmit = (e)=> {
       
+        
         e.preventDefault();
 
         this.Schema.validate({
@@ -79,8 +81,8 @@ export default class Form extends Component {
              password : prevState.password ,
              repassword : prevState.repassword,
               checked: prevState.checked
-          , ...this.defaults }))
-          
+          , ...this.defaults}))
+          window.location.href ="http://localhost:3000/Home";
         }).catch((e)=>{
           this.setState({errors:e});
           this.setState({emailError:e.errors[0]});
@@ -96,11 +98,10 @@ export default class Form extends Component {
               this.setState({passwordError:e.errors[2]});
           }
 
-          if(this.state.errors === null){
-            this.setState({goTo:"/LogIn"})
-          }
+         
+          
+        
         }); 
-
     };
 
 
@@ -132,6 +133,7 @@ export default class Form extends Component {
   render() {
     return (
       <form action="" className="rigisterForm" onSubmit={(e) => this.handleSubmit(e)}>
+       
         <Title  formTitle="formTitle" id1="hTitle" h1="Register Individual Account!"  
             id2="pTitle" p="For the purpose of gamers regulation, your details are required." />
           
@@ -182,10 +184,10 @@ export default class Form extends Component {
            
             <div className="error">{(this.state.checkError)}</div>
 
-            <Link to={"/Home"}>
+            {/* <Link to={this.state.goTo}> */}
                <Button btn="rigisterBtn" btntype="submit" title="Register Account"
-                />
-            </Link>
+               />
+               {/* </Link> */}
 
             <OR/>
             <div className="logInBtn">
@@ -194,7 +196,6 @@ export default class Form extends Component {
             <Button btn="logBtn2" btntype="button" title="login" onClick={this.props.switch}/>
             </Link>
             </div>
-            
       </form>
     )
   }

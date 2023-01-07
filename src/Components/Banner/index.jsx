@@ -8,7 +8,7 @@ export default class index extends Component {
     return (
       <div className='banner'>
         <div className='componentTitle'>
-          <GameTitle gameTitle="New Games"/>
+          <GameTitle gameTitle="New Games" id="newGames"/>
         </div>
         <div className='games scroll'>
           <div className='bannerImage1'>

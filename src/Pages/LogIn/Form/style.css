@@ -57,7 +57,10 @@
     /* align-items: center; */
     justify-content: center;
     width: 45%;
-   
+}
+
+#logBtn{
+    margin-left: 9px;
 }
 
 .icons{

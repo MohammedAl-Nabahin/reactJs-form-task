@@ -1,6 +1,7 @@
 .thirdSection{
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
 }
 
 .lastP{
@@ -31,7 +32,11 @@
 }
 
 #recentTitle{
-margin-left: 100px;
+margin-left: -300px;
+}
+
+#lastPtitle{
+margin-left: -200px;
 }
 
 .topContent{
