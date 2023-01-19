@@ -50,7 +50,8 @@ export default class Form extends Component {
         goTo:"",
         go:false,
         apiError:"",
-        postApi:false
+        postApi:false,
+        isLoading:false
     }
 
 
@@ -61,7 +62,7 @@ export default class Form extends Component {
         .email('Invalid email address')
         .required('Email is required'),
       password: Yup.string()
-        .min(8, 'Password must be at least 8 characters long')
+        .min(7, 'Password must be at least 7 characters long')
         .required('Password is required'),
       repassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords do not match')
@@ -71,12 +72,10 @@ export default class Form extends Component {
     );
    
 
-
-   
-
     handleSubmit = async (e)=> {
 
         e.preventDefault();
+
 
         this.Schema.validate({
             name: this.state.name,
@@ -85,6 +84,7 @@ export default class Form extends Component {
             repassword: this.state.repassword,
             checked: this.state.checked, 
         } , {abortEarly:false})
+
         .then(() =>{
             this.setState((prevState) => ({
               name: prevState.name,
@@ -96,44 +96,43 @@ export default class Form extends Component {
 
         }).catch((e)=>{
           this.setState({errors: e.errors});
-          console.log(e.errors)
           this.setState({nameError:e.errors[0]})
           this.setState({emailError:e.errors[1]});
           this.setState({passwordError:e.errors[4]});
           this.setState({repasswordError:e.errors[2]});
           this.setState({checkError:e.errors[5]});
 
-          if(this.state.repassword  !== this.state.passwordError ){
-            this.setState({matchError: "Passwords Dont Match "});
-          }
-          if(this.state.passwordError < 8 && this.state.passwordError >1){
-              this.setState({passwordError:e.errors[2]});
-          } 
-        }).finally(()=>{
+        }).finally(async()=>{
          if(this.state.errors.length === 0){
-              this.setState({go:true})
-         }
-          
-        }) 
-
-       
-        if(this.state.go){
-          console.log(this.state.go, this.state.postApi)
+          // console.log(this.state.errors.length)
+          //     this.setState({go:true})
           try{
-      const req =  await axios.post("https://react-tt-api.onrender.com/api/users/signup" , {
+            this.setState({isLoading:true});
+          const res =   await axios.post("https://react-tt-api.onrender.com/api/users/signup" ,  
+          JSON.stringify({
             name : this.state.name,
             email : this.state.email,
             password : this.state.password
           }
           )
+          )
+          
+          const data = JSON.stringify(res.data);
+            localStorage.setItem("token", data);
+         
         }catch(e){
           console.log(e)
           this.setState({apiError:e})
         }finally{
             this.setState({postApi:true})
-        }
-      }
-      
+            this.setState({isLoading:false});
+        }   
+         }        
+        })
+
+   
+       
+     
 
         
     };
@@ -228,12 +227,9 @@ export default class Form extends Component {
                 />
                 <Label for="checked" labelTitle="I agree to terms & conditions"/>
             </div>
-
-           
             <div className="error">{(this.state.checkError)}</div>
 
 
-            {console.log(this.state.postApi)} 
              {  this.state.postApi ?
               <Navigate to={"/Home"}> 
                   <Button btn="rigisterBtn" btntype="submit" title="Register Account"          
@@ -242,8 +238,10 @@ export default class Form extends Component {
                 <Button btn="rigisterBtn" btntype="submit" title="Register Account"          
                 />
           }
-             {/* <span>{this.state.apiError}</span> */}
+             {this.state.isLoading ? "Loading...." : ""}
+
             <OR/>
+
             <div className="logInBtn">
                 <Icon iconSrc={gIcon} alt="google" id="LogIngIcon"/>
                 <Link to={"/"}>

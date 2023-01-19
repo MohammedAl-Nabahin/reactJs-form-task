@@ -1,6 +1,5 @@
 import "./style.css";
-import { Link } from 'react-router-dom';
-import React, { Component } from 'react'
+
 import Title from "../../../Components/Title";
 import Label from "../../../Components/Label/label";
 import Input from "../../../Components/Input/input";
@@ -11,7 +10,11 @@ import gIcon from '../../../images/gIcon.png';
 import tIcon from '../../../images/tIcon.png';
 import inIcon from '../../../images/inIcon.png';
 import gitIcon from '../../../images/gitIcon.png';
+
+import { Link , Navigate} from 'react-router-dom';
+import React, { Component } from 'react'
 import * as Yup from 'yup';
+import axios from 'axios';
 
 
 export default class Form extends Component {
@@ -33,7 +36,8 @@ export default class Form extends Component {
         emailError:"",
         passwordError:"",
         submitted:"",
-        goToRigister:""
+        goToRigister:"",
+        isLoading:false
     }
 
    
@@ -43,7 +47,7 @@ export default class Form extends Component {
         .email('Invalid email address')
         .required('Email is required'),
       password: Yup.string()
-        .min(8, 'Password must be at least 8 characters long')
+        .min(7, 'Password must be at least 7 characters long')
         .required('Password is required'),
       }
     );
@@ -63,7 +67,6 @@ export default class Form extends Component {
               email: prevState.email ,
              password : prevState.password 
           , ...this.defaults }))
-          window.location.href ="http://localhost:3000/Home";
           
         }).catch((e)=>{
           this.setState({errors:e});
@@ -77,10 +80,26 @@ export default class Form extends Component {
           if(this.state.errors === null){
             this.setState({goTo:"/LogIn"})
           }
-        }); 
-        this.setState({
-          submitted:"/Home"
-        });
+        }).finally(async()=>{
+          if(this.state.errors.length === 0){
+           // console.log(this.state.errors.length)
+           //     this.setState({go:true})
+           try{
+             this.setState({isLoading:true});
+           await axios.post("https://react-tt-api.onrender.com/api/users/login" , {
+             email : this.state.email,
+             password : this.state.password
+           }
+           )
+         }catch(e){
+           console.log(e)
+           this.setState({apiError:e})
+         }finally{
+             this.setState({postApi:true})
+             this.setState({isLoading:false});
+         }   
+          }        
+         }); 
     };
 
 
@@ -127,9 +146,19 @@ export default class Form extends Component {
             </div>
             <div className="error">{(this.state.passwordError)}</div>
 
-     <Button btn="logBtn" btntype="submit" title="LogIn"
+            {  this.state.postApi ?
+              <Navigate to={"/Home"}> 
+                <Button btn="logBtn" btntype="submit" title="LogIn"
                disabled={this.state.disabled}  handle={this.props.goto}
               onClick={this.props.goToHome} id="logBtn"  /> 
+              </Navigate> : 
+               <Button btn="logBtn" btntype="submit" title="LogIn"
+               disabled={this.state.disabled}  handle={this.props.goto}
+              onClick={this.props.goToHome} id="logBtn"  /> 
+          }
+             {this.state.isLoading ? "Loading...." : ""}
+
+    
             
               <Link to={"/Rigister"}>
            <span className="link">
