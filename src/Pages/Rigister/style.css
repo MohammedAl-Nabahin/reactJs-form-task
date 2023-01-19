@@ -4,7 +4,7 @@
 .rigister{
     display: flex; 
     flex-direction:row;
-    height:850px; 
+    height:900px; 
     font-family: Inter;  
     width: 100%;
 }
@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     width:50%;
-    height:100%;
+    height:1000px;
     background: 
     linear-gradient(
         hsl(215, 82%, 46%,0.9), 
@@ -25,7 +25,7 @@
       ),
     url(../../images/hiddenLogo.png);
     background-repeat: no-repeat;
-    background-size: 572px 920px;
+    background-size: 572px 1000px;
     position: relative;
 }
 

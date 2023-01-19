@@ -1,6 +1,5 @@
 import "./style.css";
 
-import React, { Component } from 'react'
 import Title from "../../../Components/Title";
 import Label from "../../../Components/Label/label";
 import Input from "../../../Components/Input/input";
@@ -8,17 +7,20 @@ import Button from "../../../Components/Button/button";
 import OR from "../../../Components/OR/Or";
 import Icon from "../../../Components/Icon/Icon";
 import gIcon from '../../../images/gIcon.png';
-// import { boolean, object, ref, string } from 'yup';
+
+
+import React, { Component } from 'react';
 import * as Yup from 'yup';
-import { Link } from "react-router-dom";
-// import { useNavigate  } from 'react-router-dom';
-// import Home from '../../Home/index';
+import { Link, Navigate } from "react-router-dom";
+import axios from 'axios';
+
 
 
 
 export default class Form extends Component {
 
     defaults = {
+      name:"",
         email:"",
         password:"",
         repassword:"",
@@ -33,22 +35,28 @@ export default class Form extends Component {
     }
 
     state = {
+        name:"",
         email:"",
         password:"",
         repassword:"",
         checked:false,    
         errors:[],
+        nameError:"",
         emailError:"",
         passwordError:"",  
         repasswordError:"",
         checkError:"",
         matchErr:"",
-        goTo:""
+        goTo:"",
+        go:false,
+        apiError:"",
+        postApi:false
     }
 
 
     
     Schema = Yup.object().shape({
+      name: Yup.string().required("Name is required"),
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),
@@ -63,12 +71,15 @@ export default class Form extends Component {
     );
    
 
-    handleSubmit = (e)=> {
-      
-        
+
+   
+
+    handleSubmit = async (e)=> {
+
         e.preventDefault();
 
         this.Schema.validate({
+            name: this.state.name,
             email: this.state.email , 
             password: this.state.password,
             repassword: this.state.repassword,
@@ -76,32 +87,55 @@ export default class Form extends Component {
         } , {abortEarly:false})
         .then(() =>{
             this.setState((prevState) => ({
-              
+              name: prevState.name,
               email: prevState.email ,
              password : prevState.password ,
              repassword : prevState.repassword,
               checked: prevState.checked
           , ...this.defaults}))
-          window.location.href ="http://localhost:3000/Home";
+
         }).catch((e)=>{
-          this.setState({errors:e});
-          this.setState({emailError:e.errors[0]});
-          this.setState({passwordError:e.errors[3]});
-          this.setState({repasswordError:e.errors[1]});
-          this.setState({checkError:e.errors[4]});
+          this.setState({errors: e.errors});
+          console.log(e.errors)
+          this.setState({nameError:e.errors[0]})
+          this.setState({emailError:e.errors[1]});
+          this.setState({passwordError:e.errors[4]});
+          this.setState({repasswordError:e.errors[2]});
+          this.setState({checkError:e.errors[5]});
 
           if(this.state.repassword  !== this.state.passwordError ){
             this.setState({matchError: "Passwords Dont Match "});
           }
-
           if(this.state.passwordError < 8 && this.state.passwordError >1){
               this.setState({passwordError:e.errors[2]});
-          }
-
-         
+          } 
+        }).finally(()=>{
+         if(this.state.errors.length === 0){
+              this.setState({go:true})
+         }
           
+        }) 
+
+       
+        if(this.state.go){
+          console.log(this.state.go, this.state.postApi)
+          try{
+      const req =  await axios.post("https://react-tt-api.onrender.com/api/users/signup" , {
+            name : this.state.name,
+            email : this.state.email,
+            password : this.state.password
+          }
+          )
+        }catch(e){
+          console.log(e)
+          this.setState({apiError:e})
+        }finally{
+            this.setState({postApi:true})
+        }
+      }
+      
+
         
-        }); 
     };
 
 
@@ -121,21 +155,36 @@ export default class Form extends Component {
     this.setState({ errors: isValid ? '' : 'Passwords dont match' });
   };
 
-  
+
+  handleChangeInput = (e) => {
+      const { value, id } = e.target;
+      this.setState({ [id]: value });
+      this.setState({checked: e.target.checked })
+    };
 
 
-    handleChangeInput = (e) => {
-        const { value, id } = e.target;
-        this.setState({ [id]: value });
-        this.setState({checked: e.target.checked })
-      };
+   
 
   render() {
     return (
+     
       <form action="" className="rigisterForm" onSubmit={(e) => this.handleSubmit(e)}>
-       
+
+      
         <Title  formTitle="formTitle" id1="hTitle" h1="Register Individual Account!"  
             id2="pTitle" p="For the purpose of gamers regulation, your details are required." />
+         
+
+          <div className="email-sec">
+                <Label for="name" labelTitle="Your name*"/>
+                <Input type="text" 
+                placeholder="Enter Your Name" 
+                id="name"
+                handle={this.handleChangeInput}
+                value={this.state.name}
+                />
+                 <div className="error">{(this.state.nameError)}</div>
+            </div>  
           
           <div className="email-sec">
                 <Label for="emailIn" labelTitle="Email address*"/>
@@ -144,7 +193,6 @@ export default class Form extends Component {
                 id="email"
                 handle={this.handleChangeInput}
                 value={this.state.email}
-                // error=""
                 />
                  <div className="error">{(this.state.emailError)}</div>
             </div>
@@ -184,17 +232,23 @@ export default class Form extends Component {
            
             <div className="error">{(this.state.checkError)}</div>
 
-            {/* <Link to={this.state.goTo}> */}
-               <Button btn="rigisterBtn" btntype="submit" title="Register Account"
-               />
-               {/* </Link> */}
 
+            {console.log(this.state.postApi)} 
+             {  this.state.postApi ?
+              <Navigate to={"/Home"}> 
+                  <Button btn="rigisterBtn" btntype="submit" title="Register Account"          
+                  />
+              </Navigate> : 
+                <Button btn="rigisterBtn" btntype="submit" title="Register Account"          
+                />
+          }
+             {/* <span>{this.state.apiError}</span> */}
             <OR/>
             <div className="logInBtn">
                 <Icon iconSrc={gIcon} alt="google" id="LogIngIcon"/>
                 <Link to={"/"}>
-            <Button btn="logBtn2" btntype="button" title="login" onClick={this.props.switch}/>
-            </Link>
+                   <Button btn="logBtn2" btntype="button" title="login" onClick={this.props.switch}/>
+                </Link>
             </div>
       </form>
     )
